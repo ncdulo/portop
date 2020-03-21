@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+# TODO: Include check for portage(250) OR root(0)
+if ! [ $(id -u) = 0 ]; then
+	echo 'This program must be run as root.'
+	exit 1
+fi
+
+# Source bashsimplecurses here
+
+# Do program things here
+
+# Finish up and exit
