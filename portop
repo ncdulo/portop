@@ -35,10 +35,12 @@ main (){
 	move_up
 
 	# Core GHz, and eventually CPU temps. Top right
-	window "title information here" "blue" "50%"
-	append "Core Frequencies"
+	window "System Status" "blue" "50%"
+	append "`awk '{print "Load average:" $1 " " $2 " " $3}' < /proc/loadavg`"
 	addsep
-	append "$(grep 'cpu MHz' /proc/cpuinfo)"
+	append "$(grep 'cpu MHz' /proc/cpuinfo | tr -s '\t')"
+	addsep
+	append "$(sensors -f | grep -E *Core*°* | cut -dF -f1 | tr -s ' ')"
 	endwin
 
 	# Emerge fetch log. Bottom right
