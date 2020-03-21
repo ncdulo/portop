@@ -3,12 +3,6 @@
 # Configuration
 REFRESH_INTERVAL=1
 
-# TODO: Include check for portage(250) OR root(0)
-if ! [ "$(id -u)" = 0 ]; then
-	echo 'This program must be run as root.'
-	exit 1
-fi
-
 # Source bashsimplecurses here
 . "$(dirname "$0")"/bashsimplecurses/simple_curses.sh
 
@@ -37,6 +31,9 @@ main (){
 	rm -f /dev/shm/emerge-fetch.log
 	endwin
 }
-main_loop $REFRESH_INTERVAL
 
-# Finish up and exit
+case "$(id -u)" in
+    0) main_loop $REFRESH_INTERVAL;;
+    250) main_loop $REFRESH_INTERVAL;;
+    *) echo "Must be run as portage or root!" && exit 1;;
+esac
