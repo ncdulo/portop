@@ -11,7 +11,7 @@ The second option should be more secure, or less likely to break something.
 # Demo Output
 Output of the monitor in action as of [commit f79077c](https://github.com/ncdulo/portop/commit/f79077c7a58e9779ff51143670dd488a75f8cbab). If that commit is no longer current, this output may not be current. I will keep updated between large revisions, otherwise this is just a general feel of the monitor.
 ```
-───────────────────────────────────────────────────────────────────────────────────────────────────────────────┐┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────┐┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │                                                    gentoo                                                     ││                                                 System Status                                                 │
 ├───────────────────────────────────────────────────────────────────────────────────────────────────────────────┤├───────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
 │                                                Portage Status                                                 ││                                          Load average:0.58 0.42 0.38                                          │
