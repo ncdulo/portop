@@ -4,20 +4,20 @@
 REFRESH_INTERVAL=1
 
 # TODO: Include check for portage(250) OR root(0)
-if ! [ $(id -u) = 0 ]; then
+if ! [ "$(id -u)" = 0 ]; then
 	echo 'This program must be run as root.'
 	exit 1
 fi
 
 # Source bashsimplecurses here
-. $(dirname $0)/bashsimplecurses/simple_curses.sh
+. "$(dirname "$0")"/bashsimplecurses/simple_curses.sh
 
 # Main program loop. Run once per refresh
 main (){
 	window "$(hostname)" "blue"
 	append_tabbed ":Portage Status:Core Frequencies:" "4"
 	addsep
-	append_tabbed "$(genlop -c)|$(cat /proc/cpuinfo | grep 'cpu MHz')" "2" "|"
+	append_tabbed "$(genlop -c)|$(grep 'cpu MHz' /proc/cpuinfo)" "2" "|"
 	endwin
 
 	window "emerge.log" "blue" "50%"
