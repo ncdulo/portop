@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+# Configuration
+REFRESH_INTERVAL=1
+
 # TODO: Include check for portage(250) OR root(0)
 if ! [ $(id -u) = 0 ]; then
 	echo 'This program must be run as root.'
@@ -7,7 +10,16 @@ if ! [ $(id -u) = 0 ]; then
 fi
 
 # Source bashsimplecurses here
+. `dirname $0`/bashsimplecurses/simple_curses.sh
 
-# Do program things here
+# Main program loop. Run once per refresh
+main (){
+	window "`hostname`" "blue"
+	append_tabbed ":portop:ncdulo 2020:" "4"
+	addsep
+	append_tabbed "`genlop -c`|`cat /proc/cpuinfo | grep 'cpu MHz'`" "2" "|"
+	endwin
+}
+main_loop $REFRESH_INTERVAL
 
 # Finish up and exit
