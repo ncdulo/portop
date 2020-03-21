@@ -17,7 +17,7 @@ main (){
 	window "$(hostname)" "blue"
 	append_tabbed ":portop:ncdulo 2020:" "4"
 	addsep
-	append_tabbed "$(genlop -c)|$(cat /proc/cpuinfo | grep 'cpu MHz')" "2" "|"
+	append_tabbed "$(genlop -c)|$(grep 'cpu MHz' /proc/cpuinfo)" "2" "|"
 	endwin
 }
 main_loop $REFRESH_INTERVAL
