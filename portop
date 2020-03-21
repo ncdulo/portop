@@ -14,10 +14,10 @@ fi
 
 # Main program loop. Run once per refresh
 main (){
-	window "$(hostname)" "blue"
-	append_tabbed ":Portage Status:Core Frequencies:" "4"
+	window "$(hostname)" "blue" "50%"
+	append "Portage Status"
 	addsep
-	append_tabbed "$(genlop -c)|$(grep 'cpu MHz' /proc/cpuinfo)" "2" "|"
+	append "$(genlop -c)"
 	endwin
 
 	window "emerge.log" "blue" "50%"
@@ -29,7 +29,13 @@ main (){
 	# TODO: Decide on side-by-side, or top-bottom
 	# Less output if top-bottom, but more girth
 	col_right
-	#move_up
+	move_up
+
+	window "title information here" "blue" "50%"
+	append "Core Frequencies"
+	addsep
+	append "$(grep 'cpu MHz' /proc/cpuinfo)"
+	endwin
 
 	window "emerge-fetch.log" "blue" "50%"
 	tail -n 7 /var/log/emerge-fetch.log > /dev/shm/emerge-fetch.log
