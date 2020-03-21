@@ -8,12 +8,20 @@ REFRESH_INTERVAL=1
 
 # Main program loop. Run once per refresh
 main (){
-	window "$(hostname)" "blue"
-	append_tabbed ":Portage Status:Core Frequencies:" "4"
+	# The basic flow when adding content onto the screen
+	# is from top to bottom, then left to right. Thus, we
+	# start in the top left, output the entire column, reset
+	# our cursor to the top, and begin output of the right
+	# side column.
+
+	# Hostname/package build time. Top left
+	window "$(hostname)" "blue" "50%"
+	append "Portage Status"
 	addsep
-	append_tabbed "$(genlop -c)|$(grep 'cpu MHz' /proc/cpuinfo)" "2" "|"
+	append "$(genlop -c)"
 	endwin
 
+	# Emerge Log. Bottom left
 	window "emerge.log" "blue" "50%"
 	tail -n 7 /var/log/emerge.log > /dev/shm/emerge.log
 	append_file /dev/shm/emerge.log
@@ -22,9 +30,18 @@ main (){
 
 	# TODO: Decide on side-by-side, or top-bottom
 	# Less output if top-bottom, but more girth
+	# Reset our cursor to the top and begin the right column
 	col_right
-	#move_up
+	move_up
 
+	# Core GHz, and eventually CPU temps. Top right
+	window "title information here" "blue" "50%"
+	append "Core Frequencies"
+	addsep
+	append "$(grep 'cpu MHz' /proc/cpuinfo)"
+	endwin
+
+	# Emerge fetch log. Bottom right
 	window "emerge-fetch.log" "blue" "50%"
 	tail -n 7 /var/log/emerge-fetch.log > /dev/shm/emerge-fetch.log
 	append_file /dev/shm/emerge-fetch.log
