@@ -10,7 +10,7 @@ if ! [ "$(id -u)" = 0 ]; then
 fi
 
 # Source bashsimplecurses here
-. "$(dirname $0)"/bashsimplecurses/simple_curses.sh
+. "$(dirname "$0")"/bashsimplecurses/simple_curses.sh
 
 # Main program loop. Run once per refresh
 main (){
