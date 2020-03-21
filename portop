@@ -3,23 +3,21 @@
 # Configuration
 REFRESH_INTERVAL=1
 
-# TODO: Include check for portage(250) OR root(0)
-if ! [ "$(id -u)" = 0 ]; then
-	echo 'This program must be run as root.'
-	exit 1
-fi
-
 # Source bashsimplecurses here
 . "$(dirname "$0")"/bashsimplecurses/simple_curses.sh
 
 # Main program loop. Run once per refresh
 main (){
-	window "$(hostname)" "blue"
-	append_tabbed ":portop:ncdulo 2020:" "4"
-	addsep
-	append_tabbed "$(genlop -c)|$(grep 'cpu MHz' /proc/cpuinfo)" "2" "|"
-	endwin
+    window "$(hostname)" "blue"
+    append_tabbed ":portop:ncdulo 2020:" "4"
+    addsep
+    append_tabbed "$(genlop -c)|$(grep 'cpu MHz' /proc/cpuinfo)" "2" "|"
+    endwin
 }
-main_loop $REFRESH_INTERVAL
 
-# Finish up and exit
+# Check for root or portage user, quit if check fails.
+case "$(id -u)" in
+    0) main_loop $REFRESH_INTERVAL;;
+    250) main_loop $REFRESH_INTERVAL;;
+    *) echo "Must be run as portage or root!" && exit 1;;
+esac
